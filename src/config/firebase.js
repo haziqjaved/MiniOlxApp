@@ -3,9 +3,10 @@
 import { initializeApp } from "firebase/app"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword} from "firebase/auth";
-import { getFirestore,collection,addDoc,setDoc, doc, getDoc, query, getDocs } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,signOut } from "firebase/auth";
+import { getFirestore, collection,addDoc, setDoc,doc,getDoc, query, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD5wW5l0Rxp3FesHFWmV6cHGZvJT00l5WM",
@@ -35,17 +36,27 @@ async function registerUser(authParams) {
 
 async function loginUser(email, password) {
 
- await signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    alert(error.message)
-  });
+  const { user: { uid } } = await signInWithEmailAndPassword(auth, email, password)
+  const docRef = doc(db, "users", uid)
+  const docSnap = await getDoc(docRef)
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data())
+  } else {
+    console.log("No such document!");
+  }
+  return { uid, ...docSnap.data() }
+  // await signInWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //     // Signed in 
+  //     const user = userCredential.user;
+  //     // ...
+  //   })
+  //   .catch((error) => {
+  //     const errorCode = error.code;
+  //     const errorMessage = error.message;
+  //     alert(error.message)
+  //   });
 }
 
 async function submitAdData(data) {
@@ -53,7 +64,7 @@ async function submitAdData(data) {
   let { images } = data
   let imagesUrl = []
 
-  for(let i = 0; i < images.length; i++) {
+  for (let i = 0; i < images.length; i++) {
     const storageRef = ref(storage, 'ads/' + images[i].name)
     await uploadBytes(storageRef, images[i])
     const url = await getDownloadURL(storageRef)
@@ -71,17 +82,27 @@ async function getAllAds() {
   const querySnapshot = await getDocs(q)
   const currentAds = []
   querySnapshot.forEach(doc => {
-    currentAds.push({...doc.data(),id:doc.data})
-    console.log('id',doc.data())
+    currentAds.push({ ...doc.data(), id: doc.data })
+    console.log('id', doc.data())
   })
   return currentAds
 }
 
-const getSingleAd=async()=>
-{
+// const getSingleAd = async () => {
+//   const docRef = doc(db, 'ads', adId)
+//   const docSnap = await getDoc(docRef)
+//   return docSnap.data()
+// }
 
+const logout = () => {
+  signOut(auth)
+  console.log("Logout Succesfully")
 }
 
-export{
-  registerUser,loginUser,submitAdData,getAllAds,getSingleAd
+export {
+  registerUser, 
+  loginUser, 
+  submitAdData, 
+  getAllAds,
+  logout,
 }

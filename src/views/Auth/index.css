@@ -4,6 +4,9 @@ div{
 fieldset{
     position: relative;
     top:3rem;
+    /* left: 29.5rem; */
+    color: whitesmoke;
+    align-items: center;
     background-color: #252d4a;
     width: 500px;
     height: 300px;
@@ -28,7 +31,7 @@ input{
     border-radius: 10px;
     border-bottom: none;
 }
-.LoginBtn,.sinupBtn{
+.LoginBtn,.sinupBtn,.postBtn{
     width: 135px;
     height: max-content;
     border-radius: 10px !important;

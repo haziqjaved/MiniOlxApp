@@ -12,10 +12,9 @@ function Login(){
     const logIn = async()=> {
         setWait(true)
         try{ 
-            await loginUser(email, password)
+        await loginUser(email, password)
         }catch(e){alert(e.message) }
         console.log('user from component', loginUser)
-        // updateUser (loginUser(email, password))
         setWait(false)
         setScreenChange(true);
     }

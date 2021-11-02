@@ -1,0 +1,38 @@
+div{
+    padding-top: 06px;
+}
+fieldset{
+    position: relative;
+    top:3rem;
+    background-color: #252d4a;
+    width: 500px;
+    height: 300px;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 7px -5px 22px 0px rgba(0, 0, 0, 0.75);
+}
+.name,.email,.pass{
+    color: #f0fff0;
+    font-size: 30px;
+     padding-top:10px
+}
+legend{
+    font-size:40px;
+    font-style: italic;
+    font-weight: bold;
+    color: honeydew;
+    font-family: sans-serif(red-serif);
+    text-shadow: 1px 5px 2px black, 0 0 5em blue, 0 0 0.2em blue;
+}
+input{
+    border-radius: 10px;
+    border-bottom: none;
+}
+.LoginBtn,.sinupBtn{
+    width: 135px;
+    height: max-content;
+    border-radius: 10px !important;
+    background-color: burlywood;   
+    color: aliceblue;
+    text-shadow: 1px 5px 2px black, 0 0 5em blue, 0 0 0.2em blue;
+}

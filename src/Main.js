@@ -5,14 +5,10 @@ export default function Main() {
   return (<div className="App">
     <h1 style={{ backgroundColor: 'blue' }}>Welcome to Olx App</h1>
     <div className="main-div" >
-      {/* <Link to='/signup'> */}
-        <button type="button" className="btns btn btn-primary"  onClick={()=>history.push('/signup')}>SignUp</button>
-      {/* </Link> */}
+      <button type="button" className="btns btn btn-primary" onClick={() => history.push('/signup')}>SignUp</button>
       <br /><br />
-      {/* <Link to='/login'> */}
-        <button type="button" onClick={()=>history.push('/login')} className="btns btn btn-primary">Login</button>
-        {/* </Link> */}
-        <br /><br />
+      <button type="button" onClick={() => history.push('/login')} className="btns btn btn-primary">Login</button>
+      <br /><br />
     </div>
   </div>)
 }

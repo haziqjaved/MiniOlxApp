@@ -3,9 +3,9 @@
 import { initializeApp } from "firebase/app"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,signOut } from "firebase/auth";
-import { getFirestore, collection,addDoc, setDoc,doc,getDoc, query, getDocs } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "firebase/auth";
+import {getFirestore,collection,addDoc,setDoc,doc,getDoc,query,getDocs } from "firebase/firestore";
+import {getStorage,ref,uploadBytes,getDownloadURL} from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,6 +17,7 @@ const firebaseConfig = {
   appId: "1:408736445634:web:9ca36d1ceed160c738775b",
   measurementId: "G-ZCMX3PGMWJ"
 };
+
 // Initialize Firebase
 initializeApp(firebaseConfig)
 
@@ -46,17 +47,6 @@ async function loginUser(email, password) {
     console.log("No such document!");
   }
   return { uid, ...docSnap.data() }
-  // await signInWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //     // Signed in 
-  //     const user = userCredential.user;
-  //     // ...
-  //   })
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     alert(error.message)
-  //   });
 }
 
 async function submitAdData(data) {
@@ -88,11 +78,12 @@ async function getAllAds() {
   return currentAds
 }
 
-// const getSingleAd = async () => {
-//   const docRef = doc(db, 'ads', adId)
-//   const docSnap = await getDoc(docRef)
-//   return docSnap.data()
-// }
+async function getSingleAd(adId) {
+  const docRef = doc(db, 'ads', adId)
+  const docSnap = await getDoc(docRef)
+
+  return docSnap.data()
+}
 
 const logout = () => {
   signOut(auth)
@@ -105,4 +96,5 @@ export {
   submitAdData, 
   getAllAds,
   logout,
+  getSingleAd
 }

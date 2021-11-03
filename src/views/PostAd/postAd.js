@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { submitAdData } from '../../config/firebase';
 import '../PostAd/post.css'
 
 export default function PostAd() {
+  const history= useHistory()
   const [form, setForm] = useState({
     title: '', description: '', price: '', images: []
   })
-  const submitAd = () => {
-    submitAdData(form)
+  const submitAd = async() => {
+    await submitAdData(form)
+    history.push('/dashboard')
   }
   const onChangeValues = (key, e) => {
     const value = key === 'images' ? e.target.files : e.target.value

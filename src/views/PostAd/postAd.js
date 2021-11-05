@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { submitAdData } from '../../config/firebase';
 import '../PostAd/post.css'
 
 export default function PostAd() {
   const history= useHistory()
-  const [form, setForm] = useState({
-    title: '', description: '', price: '', images: []
-  })
-  const submitAd = async() => {
-    await submitAdData(form)
+  const [form,setForm]=useState({})
+
+
+  
+  const submitAd = async ()=> {
+    const stringifyUser = localStorage.getItem('user')
+    console.log(stringifyUser)
+    const { uid } = JSON.parse(stringifyUser)
+    await submitAdData({uid, ...form})
     history.push('/dashboard')
   }
   const onChangeValues = (key, e) => {
@@ -17,6 +21,8 @@ export default function PostAd() {
     setForm({ ...form, [key]: value })
   }
   console.log('form ==>', form)
+  // console.log('AADDDS ==>', ads)
+  
   return (<div>
     <fieldset className="postfieldset" >
       <legend className="postlegend"> Ad Post Form </legend>
@@ -39,11 +45,8 @@ export default function PostAd() {
         <input style={{ width: 320 }}
           multiple onChange={(e) => onChangeValues('images', e)} type="file" />
       </label><br />
-      <button className="postBtn" onClick={submitAd}>Post</button>
+      <button className="postBtn btn-primary" onClick={submitAd}>Post</button>
       <br/>
     </fieldset>
   </div>
-
-
-);
-}
+)}

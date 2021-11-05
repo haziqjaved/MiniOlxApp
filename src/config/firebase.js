@@ -3,9 +3,9 @@
 import { initializeApp } from "firebase/app"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "firebase/auth";
-import {getFirestore,collection,addDoc,setDoc,doc,getDoc,query,getDocs } from "firebase/firestore";
-import {getStorage,ref,uploadBytes,getDownloadURL} from "firebase/storage";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getFirestore, collection, addDoc, setDoc, doc, getDoc, query, getDocs,where,orderBy } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -35,20 +35,6 @@ async function registerUser(authParams) {
   })
 }
 
-async function loginUser(email, password) {
-
-  const { user: { uid } } = await signInWithEmailAndPassword(auth, email, password)
-  const docRef = doc(db, "users", uid)
-  const docSnap = await getDoc(docRef)
-
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data())
-  } else {
-    console.log("No such document!");
-  }
-  return { uid, ...docSnap.data() }
-}
-
 async function submitAdData(data) {
   //Upload files to storage
   let { images } = data
@@ -66,14 +52,36 @@ async function submitAdData(data) {
   alert('Data added successfully!')
 }
 
-// 
+// async function getAllAds(searchData){
+//   let currentAds = []
+
+//   if(searchData){
+//     const q = query(collection(db, "ads"), where("title", "==", searchData))
+//     const querySnapshot = await getDocs(q);
+
+//     querySnapshot.forEach((doc) => {
+//     let currentAd = doc.data()
+//     currentAds.push({...currentAd, id: doc.id})
+//   });
+//   }
+//   else{
+//     const q = query(collection(db, "ads"), orderBy("createdAt", "asc"))
+//     const querySnapshot = await getDocs(q);
+
+//     querySnapshot.forEach((doc) => {
+//     let currentAd = doc.data()
+//     currentAds.push({...currentAd, id: doc.id})
+//   });
+//   }
+//   return  currentAds
+// }
+
 async function getAllAds() {
   const q = query(collection(db, "ads"))
   const querySnapshot = await getDocs(q)
   const currentAds = []
   querySnapshot.forEach(doc => {
-    currentAds.push({ ...doc.data(), id: doc.data })
-    console.log('id', doc.data())
+    currentAds.push({ ...doc.data(), id: doc.id })
   })
   return currentAds
 }
@@ -81,19 +89,33 @@ async function getAllAds() {
 async function getSingleAd(adId) {
   const docRef = doc(db, 'ads', adId)
   const docSnap = await getDoc(docRef)
-
   return docSnap.data()
 }
+
+async function loginUser(email, password) {
+  const { user: { uid } } = await signInWithEmailAndPassword(auth, email, password)
+  const docRef = doc(db, "users", uid)
+  const docSnap = await getDoc(docRef)
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data())
+  } else {
+    console.log("No such document!");
+  }
+  return { uid, ...docSnap.data() }
+}
+
 
 const logout = () => {
   signOut(auth)
   console.log("Logout Succesfully")
 }
 
+export default db;
 export {
-  registerUser, 
-  loginUser, 
-  submitAdData, 
+  registerUser,
+  loginUser,
+  submitAdData,
   getAllAds,
   logout,
   getSingleAd

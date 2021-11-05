@@ -31,11 +31,12 @@ input{
     border-radius: 10px;
     border-bottom: none;
 }
-.LoginBtn,.sinupBtn,.postBtn{
+.btn,.LoginBtn,.postBtn{
     width: 135px;
     height: max-content;
     border-radius: 10px !important;
     background-color: burlywood;   
     color: aliceblue;
+    border: none;
     text-shadow: 1px 5px 2px black, 0 0 5em blue, 0 0 0.2em blue;
 }

@@ -10,20 +10,15 @@ import Dashboard from '../views/Dashboard';
 
 // kisi bh cheez ko nick name dene ky liay hum  'as' use kreingy phr jo nick name hoga woh likhenge 
 //is Rule ko hum alias khete h eg : jaise uper BrowserRouter as Router hua h hai 
-
 export default function Change() {
-    // const [isLoading, setLoading] = useState(true)
     const [user, setUser] = useState()
     const auth = getAuth()
 
     useEffect(() => {
         onAuthStateChanged(auth, userData => {
             setUser(userData)
-            // setLoading(false)
         })
     }, [])
-
-    // if (isLoading) return <img width="80" src="https://c.tenor.com/tEBoZu1ISJ8AAAAC/spinning-loading.gif" />
 
     return (<Router>
         <div>

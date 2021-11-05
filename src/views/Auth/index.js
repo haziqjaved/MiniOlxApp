@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { registerUser } from '../../config/firebase';
 import '../Auth/index.css';
 
 export default function Auth() {
+    const history=useHistory();
     const [load, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -17,6 +19,7 @@ export default function Auth() {
         alert('Succecfully Signed UP')
         }catch(e){alert(e.message) }
         setLoading(false)
+        history.push('/')
     }
     return (
         <div align='center'>
@@ -37,7 +40,7 @@ export default function Auth() {
                     <br /><br />
                     {load ?
                         <img width="80" src='https://i.gifer.com/4V0b.gif' /> :
-                        <button className='signupBtn' onClick={signUp}>SignUp</button>
+                        <button className='btn btn-primary'  onClick={signUp}>SignUp</button>
                     }
                 </label>
             </fieldset>

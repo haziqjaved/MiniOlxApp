@@ -1,11 +1,12 @@
+// import { useState,useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Featured_Card from "../Featured_Card";
 import '../Dashboard/index.css'
 import { logout } from "../../config/firebase";
 export default function Dashboard() {
-
-  const history=useHistory()
-  return (<>
+  const history =useHistory();
+  
+return (<>
             <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
               <div className="container-fluid">
                 <a className="navbar-brand" style={{ color: 'blue', fontWeight: 'bold', fontSize: '30px' }} href="#">Ol<span style={{ fontSize: '25px' }}>x</span></a>
@@ -22,10 +23,8 @@ export default function Dashboard() {
                 </div>
               </div>
             </nav>
-            <br />
             {/* Cards OF Ads Details */}
             <Featured_Card />
           </>
-
   )
 }

@@ -29,7 +29,6 @@ export default function Dashboard() {
         style={{ maxHeight: '100px' }}
         navbarScroll
       >
-        {/* <Nav.Link href="#action1">Home</Nav.Link> */}
         <Form className="d-flex">
         <FormControl
           type="search"
@@ -40,8 +39,8 @@ export default function Dashboard() {
         />
         </Form>
       </Nav>
-        <Button variant='outline-primary' style={{borderRadius:'10px'}}  onClick={() =>history.push('/postad')}>+Sell</Button> &nbsp;&nbsp;
-        <Button onClick={logout} variant='outline-danger' style={{borderRadius:'10px'}}>Logout</Button>
+        <Button variant='outline-primary' style={{borderRadius:'10px',float:'right'}}  onClick={() =>history.push('/postad')}>+Sell</Button> &nbsp;&nbsp;
+        <Button onClick={logout} variant='outline-danger' style={{borderRadius:'10px',float:'right'}}>Logout</Button>
     </Navbar.Collapse>
   </Container>
 </Navbar>

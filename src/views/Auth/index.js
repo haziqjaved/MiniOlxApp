@@ -61,16 +61,16 @@ export default function Auth() {
               SignUp
             </button>}
             <p className="bottom-text">
-              By clicking the Sign Up button, you agree to our{" "}
-              <a href="#">Terms & Conditions</a> and{" "}
-              <a href="#">Privacy Policy</a>
+              By clicking the Sign Up button, you agree to our
+              <a href="#"> Terms & Conditions</a>
+              <a href="#"> Privacy Policy</a>
             </p>
           </form>
         </div>
         <footer>
           <p style={{color: "black"}}>
             Already have an account?
-            <Link to="/login"> Login</Link>
+            <Link to="/"> Login</Link>
           </p>
         </footer>
       </div>

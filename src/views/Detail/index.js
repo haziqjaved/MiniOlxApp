@@ -1,39 +1,36 @@
-// import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import db, { getSingleAd } from '../../config/firebase'
-import '../Detail/index.css'
+import FbImageGrid from 'react-fb-image-grid';
+import { Card } from 'react-bootstrap'
 
 export default function Detail() {
   const { adId } = useParams()
   const history = useHistory()
   const [ad, setAd] = useState({})
-
-
   useEffect(async () => {
     const adData = await getSingleAd(adId)
     setAd(adData)
   }, [])
 
-  const { title, price, description,location, images } = ad
-
-
-  return (<div >
-    <h2 > Detail  </h2>
-    <h2 style={{marginLeft:'1200px',cursor:'pointer'}} onClick={() => history.push('/dashboard')}>❌</h2>
-    {/* <h2><button className="btn" style={{textAlign:'center',width: 120, height: 50, borderRadius: '50%',border:'none', border: 'none', fontFamily: 'arial', fontWeight: 'bold', fontStyle: 'italic'}} onClick={() => history.push('/dashboard')}>❌</button> */}
-    <div className='detail_item'>
-     <h3>Rs:{price}</h3>
-      <p><b>Title: </b>{title}</p>
-      <p><b>Description:</b>{description}</p>
+  return (
+    <div align="center">
+      <h2 style={{ fontFamily:'sans-serif(red-serif)',alignItems:'center',fontStyle:'italic'}}> Ad Detail  </h2>
+      <h2 style={{ float: 'right', cursor: 'pointer' }} onClick={() => history.push('/dashboard')}>❌</h2>
+      <div style={{ width: '68%', display: 'flex' }}>
+        <FbImageGrid images={ad.images} countFrom={1} />
+        <div>
+          <Card  style={{ width: '100%' , height:'100%' }}>
+            <Card.Body  style={{width:'100%'}}>
+              <Card.Title style={{fontSize:'28px',marginBottom:'25px'}} >Title: {ad.title}</Card.Title>
+              <Card.Subtitle  style={{fontSize:'18px'}} className="mb-4 text-muted">Price: {ad.price}</Card.Subtitle>
+              <Card.Text style={{fontSize:'2rem',lineHeight:'30px'}}>
+                Location: {ad.location}<br/>Description: {ad.description}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      </div>
     </div>
-    {images && images.map(item => {
-      {/* return(
-        <FbImageLibrary images={[item]}/>
-      ) */}
-      return <img width="225" height="" src={item} />
-    })}
-    <br/>
-  </div>
   )
 }

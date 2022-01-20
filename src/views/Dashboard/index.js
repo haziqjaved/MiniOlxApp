@@ -1,30 +1,57 @@
-// import { useState,useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Featured_Card from "../Featured_Card";
-import '../Dashboard/index.css'
+import React,{ useState} from 'react'
+import { Navbar, Nav,  Container, Form, FormControl, Button } from 'react-bootstrap';
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { logout } from "../../config/firebase";
+import Featured_Card from "../Featured_Card";
+import Slider from '../Slider/index.js';
+import Navbar2 from '../Navbar2'
+import { useHistory,Link } from "react-router-dom";
+
 export default function Dashboard() {
-  const history =useHistory();
-  
-return (<>
-            <nav className="navbar navbar-expand-lg navbar-light bg-secondary">
-              <div className="container-fluid">
-                <a className="navbar-brand" style={{ color: 'blue', fontWeight: 'bold', fontSize: '30px' }} href="#">Ol<span style={{ fontSize: '25px' }}>x</span></a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                  <form className="d-flex">
-                    <input className="form-control me-2" style={{ width: '850px', marginLeft: '50px' }} type="search" placeholder="Find Car,Mobile Phone & more..." aria-label="Search" />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </form>
-                  <button className="Button btn btn-outline-primary" onClick={() => { history.push('/postad') }} type="button"><span style={{fontSize: '20px', fontWeight: 'bold' }}>+</span>Sell</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button className="Button btn btn-outline-warning" onClick={logout} type="button">Logout</button>
-                </div>
-              </div>
-            </nav>
-            {/* Cards OF Ads Details */}
-            <Featured_Card />
-          </>
+
+  const history = useHistory();
+  return (<div>
+  <Navbar bg="light" expand="lg">
+  <Container fluid>
+    <Navbar.Brand href="#">
+    <img
+        src={require("../../Assets/olx-removebg-preview.png").default}
+        width="45"
+        height="45"
+        className="d-inline-block align-top"
+        alt="Olx logo"
+      />
+    </Navbar.Brand>
+    <Navbar.Toggle aria-controls="navbarScroll" />
+    <Navbar.Collapse id="navbarScroll">
+      <Nav
+        className="me-auto my-2 my-lg-0"
+        style={{ maxHeight: '100px' }}
+        navbarScroll
+      >
+        {/* <Nav.Link href="#action1">Home</Nav.Link> */}
+        <Form className="d-flex">
+        <FormControl
+          type="search"
+          placeholder="Find Cars,Mobile Phones and more...."
+          className="me-2"
+          style={{borderRadius:'20px'}}
+          aria-label="Search"
+        />
+        </Form>
+      </Nav>
+        <Button variant='outline-primary' style={{borderRadius:'10px'}}  onClick={() =>history.push('/postad')}>+Sell</Button> &nbsp;&nbsp;
+        <Button onClick={logout} variant='outline-danger' style={{borderRadius:'10px'}}>Logout</Button>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
+
+    {/* Navbar2 */}
+      <Navbar2 />
+    {/* Carousel */}
+    <Slider />
+    {/* Cards OF Ads Details  */}
+    <Featured_Card />
+  </div>
   )
 }

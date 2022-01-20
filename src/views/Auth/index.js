@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
 import { registerUser } from '../../config/firebase';
 import '../Auth/index.css';
 
@@ -10,8 +10,6 @@ export default function Auth() {
     const [password, setPassword] = useState('')
     const [fullname, setFullName] = useState('')
 
-    //SignUp Function
-
     const signUp = async () => {
         setLoading(true)
         try 
@@ -19,6 +17,7 @@ export default function Auth() {
         alert('Succecfully Signed UP')
         }catch(e){alert(e.message) }
         setLoading(false)
+        //use for navigation
         history.push('/')
     }
     return (

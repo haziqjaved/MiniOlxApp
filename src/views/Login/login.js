@@ -27,7 +27,8 @@ function Login() {
         <div className="form-wrap">
           <h1 style={{color:'black',backgroundColor:'transparent'}}>Login</h1>
 
-          <p>It's free and take a minute only</p>
+          <p>Welcome to Olx,
+          Please Login to Visit Our site</p>
           <form onSubmit={e => e.preventDefault()}>
 
             <div className="form-group">
@@ -63,7 +64,7 @@ function Login() {
         </div>
         <footer>
           <p style={{color: "black"}}>
-            Dont Have any Account
+            Dont Have Account?
             <span style={{color:'blue'}} onClick={()=>history.push('/signup')}> Signup</span>
           </p>
         </footer>

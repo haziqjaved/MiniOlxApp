@@ -1,29 +1,39 @@
 
-.postfieldset{
-    position: relative;
-    top:3rem;
-    left: 29.5rem;
-    align-items: center;
-    text-align: center;
-    background-color: #252d4a;
-    width: 450px!important;
-    height: 540px !important;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 7px -5px 22px 0px rgba(0, 0, 0, 0.75);
+#container {
+    margin:  auto;
+    max-width: 600px;
+    padding: 20px;
 }
-.postBtn{
-    width: 120px;
-    height: max-content;
-    border: groove transparent !important;
-    border-radius: 10px !important;
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75) !important;
-    background-color: mediumblue;
-    /* line-height: ;
-    width: 135px;
-    height: max-content;
-    border-radius: 10px !important;
-    background-color: burlywood;   
-    color: aliceblue;
-    text-shadow: 1px 5px 2px black, 0 0 5em blue, 0 0 0.2em blue; */
+.form-wrap .form-group {
+    margin-top: 30px;
+}
+
+.form-wrap ,
+.form-group label {
+    display: block !important;
+    color: #666;
+}
+
+.form-wrap .form-group input {
+    width: 100%;    
+    padding: 10px;
+    border: #ddd 1px solid;
+    border-radius: 5px;
+}
+
+.form-wrap button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    color: #fff;
+    background: #49c1a2;
+    cursor: pointer;
+}
+
+.form-wrap button:hover {
+    background: #007763;
+}
+footer {
+    text-align: center;
 }

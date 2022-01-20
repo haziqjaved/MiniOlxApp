@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Detail from '../views/Detail/index'
 import Auth from "../views/Auth/index";
-import Main from "../Main";
 import PostAd from "../views/PostAd/postAd";
 import Login from '../views/Login/login';
 import Dashboard from '../views/Dashboard';
@@ -25,8 +24,7 @@ export default function Change() {
             {/* A <Switch> looks through its children <Route>s and
             renders tservhe first one that matches the current URL. */}
             <Switch>
-                <Route path="/" exact>{ProtectedRoute(!user, <Main />, '/dashboard')}</Route>
-                <Route path="/login" exact><Login /></Route>
+                <Route path="/" exact>{ProtectedRoute(!user, <Login />,'/dashboard')}</Route>
                 <Route path="/signup" exact><Auth /></Route>
                 <Route path="/postad" exact>{ProtectedRoute(user, <PostAd />)}</Route>
                 <Route path="/dashboard" exact>{ProtectedRoute(user, <Dashboard />)}</Route>

@@ -1,7 +1,4 @@
-// import image from "../../images/car.jpg";
 import "./App.css";
-
-import Imagegallery from "../../Component/Imagegallery";
 
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -39,24 +36,21 @@ import Navbar2 from "../../Component/Navbar2";
 
 import { useEffect, useState } from "react";
 
+const bull = (
+  <Box
+    component="span"
+    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
+  >
+    •
+  </Box>
+);
+
 export default function Detail() {
   const { adId } = useParams();
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userDetails, setUserDetails] = useState({});
   const [singleAd, setsingleAd] = useState();
   const [admin, setAdmin] = useState();
-
-  const IMAGES = [
-    {
-      src: "",
-      thumbnail:
-        "",
-      thumbnailWidth: 320,
-      thumbnailHeight: 174,
-      isSelected: true,
-      caption: "After Rain (Jeshu John - designerspics.com)",
-    }
-  ];
 
   useEffect(async () => {
     onAuthStateChanged(auth, (user) => {
@@ -90,30 +84,12 @@ export default function Detail() {
         console.log("user is signed out");
       }
     });
-  }, [userLoggedIn]);
-
-  useEffect(() => {
     const docRef = doc(db, "add", adId);
     const docSnap = getDoc(docRef)
       .then((docSnap) => {
         if (docSnap.exists()) {
           console.log("Document data:", docSnap.data());
           setsingleAd(docSnap.data());
-
-          const adminRef = doc(db, "users", docSnap.data().adminUid);
-          const adminSnap = getDoc(adminRef)
-            .then((adminSnap) => {
-              if (adminSnap.exists()) {
-                console.log("Admin data:", adminSnap.data());
-                setAdmin(adminSnap.data());
-              } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
         } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
@@ -122,12 +98,26 @@ export default function Detail() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+      // console.log(singleAd?.adminUid)
+    const adminRef = doc(db, "users", singleAd?.adminUid);
+    const adminSnap = getDoc(adminRef)
+      .then((adminSnap) => {
+        if (adminSnap.exists()) {
+          console.log("Admin data:", adminSnap.data());
+          setAdmin(adminSnap.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userLoggedIn]);
 
   function changeUser() {
     setUserLoggedIn(false);
   }
-
   return (
     <>
       {userLoggedIn ? (
@@ -140,16 +130,12 @@ export default function Detail() {
       )}
 
       <Navbar2 />
-
       <div className="container d-flex justify-content-between w-100">
         <div
           style={{ height: "500px", minWidth: "500px" }}
           className="d-flex align-items-center"
         >
-          <img style={{
-            width: '100%',
-            height: '100%'
-          }} src={singleAd?.image[0]}/>
+          <img className="w-100" src={singleAd?.image[0]} />
         </div>
         <div
           style={{ height: "500px", maxWidth: "500px" }}

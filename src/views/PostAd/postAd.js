@@ -11,6 +11,7 @@ export default function PostAd() {
     console.log(stringifyUser)
     const { uid } = JSON.parse(stringifyUser)
     await submitAdData({uid, ...form})
+    console.log('Uid from ad',uid)
     history.push('/dashboard')
   }
   const onChangeValues = (key, e) => {
@@ -27,7 +28,6 @@ export default function PostAd() {
 
       <p>Include Ad Details</p>
       <form onSubmit={(e) => e.preventDefault()}>
-        <div className="d-flex justify-content-between">
             <div className="form-group">
               <label for="adTitle">Title</label>
               <input
@@ -36,8 +36,8 @@ export default function PostAd() {
                 id="adTitle"
                 placeholder="Title"
                 onChange={(e) => onChangeValues('title', e)}
-              /><br/>
-            </div><br />
+              />
+            </div>
             <div className="form-group">
               <label for="description">Description</label>
               <input
@@ -68,7 +68,26 @@ export default function PostAd() {
                 onChange={(e) => onChangeValues('location' , e)}
               />
             </div>
-          </div>
+            <div className="form-group">
+              <label for="location">Contact Number</label>
+              <input
+                type="text"
+                name="contact"
+                id="contactNo"
+                placeholder="012334454"
+                onChange={(e) => onChangeValues('contactNo' , e)}
+              />
+            </div>
+            <div className="form-group">
+              <label for="location">Email Id</label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="email@gmail.com"
+                onChange={(e) => onChangeValues('email' , e)}
+              />
+            </div>
         <div className="form-group">
           <label for="image">Upload Pictures</label>
           <input
@@ -90,30 +109,3 @@ export default function PostAd() {
 
   
 )}
-
-{/* <div>
-     <fieldset className="postfieldset" >
-      <legend className="postlegend"> Ad Post Form </legend>
-      <label className='postAd'>Title:<br />
-        <input style={{ width: 320 }}
-          onChange={(e) => onChangeValues('title', e)}
-          type="text" placeholder="Title" />
-      </label><br />
-      <label className='postAd'>Description:<br/>
-        <input style={{ width: 320 }}
-          placeholder="description..." onChange={(e) => onChangeValues('description', e)}
-          type="text" />
-      </label><br />
-      <label className='postAd'>Price:<br/>
-        <input style={{ width: 320 }}
-          placeholder="Price in PKR" onChange={(e) => onChangeValues('price', e)}
-          type="text" />
-      </label><br />
-      <label className='postAd'>Price:<br/>
-        <input style={{ width: 320 }}
-          multiple onChange={(e) => onChangeValues('images', e)} type="file" />
-      </label><br />
-      <button className="postBtn btn-primary" onClick={submitAd}>Post</button>
-      <br/>
-    </fieldset>
-  </div> */}

@@ -17,6 +17,15 @@ const firebaseConfig = {
   appId: "1:408736445634:web:9ca36d1ceed160c738775b",
   measurementId: "G-ZCMX3PGMWJ"
 };
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAtm9rqsGnBEEQ0Y8ReUMfzwczjSDDpL6s",
+//   authDomain: "online-ce580.firebaseapp.com",
+//   projectId: "online-ce580",
+//   storageBucket: "online-ce580.appspot.com",
+//   messagingSenderId: "181136653281",
+//   appId: "1:181136653281:web:1717acb3388d8cd420b0a0",
+//   measurementId: "G-RZKQSG1X3B"
+// };
 
 // Initialize Firebase
 initializeApp(firebaseConfig)
@@ -26,13 +35,12 @@ const db = getFirestore()
 const storage = getStorage()
 
 async function registerUser(authParams) {
-  const { email, password, fullname } = authParams
+  const {  fullname,email, phoneNo, password } = authParams
   const { user: { uid } } = await createUserWithEmailAndPassword(auth, email, password)
   await setDoc(doc(db, 'users', uid), {
-    fullname, email, password
+    fullname, email,phoneNo, password,uid
   })
 }
-
 async function submitAdData(data) {
   //Upload files to storage
   let { images } = data
@@ -78,7 +86,6 @@ async function loginUser(email, password) {
   }
   return { uid, ...docSnap.data() }
 }
-
 
 const logout = () => {
   signOut(auth)
